@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: (GPL-2.0+ or MIT)
+// Copyright (C) 2024 Javier Alvarez <javier.alvarez@allthingsembedded.net>
+
+#include "sun20i-d1-clockworkpi-v3.14.dts"
+
+/ {
+	model = "Clockwork uConsole (R-01)";
+	compatible = "clockwork,r-01-uconsole-v3.14",
+		     "clockwork,r-01-clockworkpi-v3.14",
+		     "allwinner,sun20i-d1";
+
+	aliases {
+		serial1 = &uart1;
+		/delete-property/ ethernet0;
+	};
+
+	chosen {
+		stdout-path = "serial1:115200n8";
+	};
+
+	memory@40000000 {
+		device_type = "memory";
+		reg = <0x40000000 0x40000000>;
+	};
+};
+
+&uart1 {
+	status = "okay";
+	/delete-property/ uart-has-rtscts;
+	/delete-node/ bluetooth;
+};
+
+&mmc1 {
+	status = "disabled";
+};
